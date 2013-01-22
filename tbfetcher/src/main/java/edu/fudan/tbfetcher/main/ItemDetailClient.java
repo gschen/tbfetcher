@@ -12,7 +12,7 @@ public class ItemDetailClient extends AbstractTaobaoClient {
 	}
 
 	public static void main(String[] args) {
-
+		new DefaultTaobaoClient().execute();
 	}
 
 }
