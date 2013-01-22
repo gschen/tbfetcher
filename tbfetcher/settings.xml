@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+
+	<!-- 浏览器路径配置开始 注意路径分隔符为双斜杠 -->
+	<browserPath>
+		C:\\Users\\JustinChen\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe
+	</browserPath>
+
+	<!-- excel文件保存路径配置开始 -->
+	<excelFilePath>
+		c:\\taobao-sjtu.xls
+	</excelFilePath>
+	
+	<!-- Database 文件保存路径路径配置开始 -->
+	<DBFilePath>
+		D:\\AccessDBFile\\tbfetcher.accdb
+	</DBFilePath>
+
+	<!-- 是否从成交记录中获取购买用户信息开始 1 是 0 否 如果设置为1，则excel文件的最后几个sheet为从成交记录中获得的买家信息列表 -->
+	<getInfoFromDealRecords>
+		0
+	</getInfoFromDealRecords>
+
+	<!-- 销售热门页面中抓取top10 or top20 or other -->
+	<topNum>
+		1
+	</topNum>
+	
+	<!-- search result 页面设置排序方式 
+	0 默认
+	1人气
+	2销量
+	3信用
+	4价格
+	-->
+	<sortOrderInSearchResult>
+		3
+	</sortOrderInSearchResult>
+	
+	
+	<!-- 评论数量配置 
+	0 	获取所有的评论(热门产品的评论可能非常之多，抓取的时间会比较长)
+	1 	最近多少条评论(评论不足*条，只抓取该宝贝目前所拥有的评论)
+		item_comment_quantity_num表示最近多少条评论
+	2 	最近多少天评论(宝贝的评论不足*天，只抓取该宝贝目前所有天数的评论)
+		item_comment_date_num表示最近多少天的评论
+	3	从×年×月×天到×年×月×天的评论
+		item_comment_start_date评论开始日期，格式为：2012-12-10
+		item_comment_end_date评论结束日期
+	
+	-->
+	<itemCommentQuantity>
+		<strategyNum>1</strategyNum>
+		<itemCommentQuantityNum>5</itemCommentQuantityNum>
+		<itemCommentDateNum>20</itemCommentDateNum>
+		<itemCommentStartDate>2012-12-01</itemCommentStartDate>
+		<itemCommentEndDate>2012-12-09</itemCommentEndDate>
+	</itemCommentQuantity>
+	
+	<!-- 
+	0: 抓取最早一条用户评价记录的时间
+	1：不抓取
+		如果配置为0，则第一条评论时间为该宝贝历史上第一条评论的时间；
+		如果配置为1，则为item_comment_quantity中配置的时间段内的评论时间；
+	
+	 -->
+	<oldestData>
+	1
+	</oldestData>
+	
+	<!-- 宝贝评价的抓取时间间隔开始-->
+	<reviewDuration>
+		1000
+	</reviewDuration>
+	
+	<!-- search result 获取前面多少页的搜索结果 -->
+	<searchResultPageNum>
+		4
+	</searchResultPageNum>
+
+	<!-- 设置排序方法 -->
+	<!-- 商品类别配置信息开始 -->
+	<categories>
+		<category>
+			<name>洁面</name>
+			<url>http://top.taobao.com/level3.php?cat=TR_MRHF&level3=50011977&up=false
+			</url>
+		</category>
+		<!-- 
+		<category>
+			<name>热门手机</name>
+			<url>http://top.taobao.com/level3.php?cat=TR_SJ&level3=TR_RXSJB&up=false
+			</url>
+		</category>
+		<category>
+			<name>普通数码相机</name>
+			<url>http://top1.search.taobao.com/level3.php?cat=TR_SYQC&level3=1403&up=false
+			</url>
+		</category>
+		 -->
+	</categories>
+	<!-- 商品类别配置信息结束 -->
+
+</settings>
