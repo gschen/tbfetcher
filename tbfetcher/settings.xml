@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
 
+
+
 	<!-- 浏览器路径配置开始 注意路径分隔符为双斜杠 -->
 	<browserPath>
 		C:\\Users\\JustinChen\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe
