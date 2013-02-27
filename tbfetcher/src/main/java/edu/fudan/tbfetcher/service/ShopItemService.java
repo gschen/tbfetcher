@@ -4,7 +4,9 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -58,7 +60,7 @@ public class ShopItemService {
 	}
 
 	/**
-	 * 遍历每一页数据，获取相应的数据
+	 * Iterate every page of the url
 	 */
 	public void execute() {
 		if (shopUrl.contains("tmall")) {
@@ -86,8 +88,10 @@ public class ShopItemService {
 			writeItemNumToDB(shopId, itemNum);
 
 			log.info("Shop Item Service: totle item num: " + itemNum);
+		} else {
+			writeItemNumToDB(shopId, -1);
 		}
-		// 只抓取宝贝数量
+
 		if (2 == shopItemConfig) {
 			return;
 		}
@@ -101,8 +105,7 @@ public class ShopItemService {
 		}
 		String baseUrl = pageUrl;
 		for (int i = 0; i < pageSum; i++) {
-			System.out.println("Process page " + (i + 1)
-					+ ":----------------------");
+			System.out.println("Process page " + (i + 1) + ":----------------------");
 			if (i > 0) {
 				pageUrl = baseUrl + "?pageNum=" + (i + 1);
 				result = TBBrowser.get(pageUrl, null);
@@ -111,7 +114,7 @@ public class ShopItemService {
 				}
 				doc = TBBrowser.getDoc();
 			}
-			Elements itemListEls = doc.select("ul.shop-list li div.item");
+			Elements itemListEls = doc.select("div.shop-hesper-bd ul.shop-list li div.item");
 			for (Element el : itemListEls) {
 				ShopItemInfo itemInfo = new ShopItemInfo();
 				itemInfo.setShopId(shopId);
@@ -121,6 +124,7 @@ public class ShopItemService {
 				if (urlEls.size() > 0) {
 					String itemUrl = urlEls.get(0).attr("href");
 					if (null != itemUrl && itemUrl.contains("id")) {
+						itemInfo.setItemDetailUrl(itemUrl);
 						try {
 							URI uri = new URI(itemUrl);
 							String query = uri.getQuery();
@@ -184,6 +188,12 @@ public class ShopItemService {
 					itemInfo.setReviewNum(reviewNum);
 					log.info("Shop Item Service: review num: " + reviewNum);
 				}
+				
+				/** set fetch time */
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String fetchTime = format.format(new Date());
+				itemInfo.setFetchTime(fetchTime);
+				
 				itemInfos.add(itemInfo);
 				if (itemInfos.size() >= SystemConstant.DB_WRITE_NUM) {
 					writeDataToDB(itemInfos);

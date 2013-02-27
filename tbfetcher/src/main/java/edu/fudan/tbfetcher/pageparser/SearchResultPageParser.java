@@ -127,6 +127,13 @@ public class SearchResultPageParser extends BasePageParser {
 						itemId = pair[1];
 					}
 				}
+				if(null != itemId){
+					if(isInserted(itemId)){
+						continue;
+					}
+				}else{
+					continue;
+				}
 				String sellerName = item.select("p.seller > a").get(0).text();
 				Elements globalBuy = item.select("p.seller > a.globalbuy");
 				boolean isGlobalBuy = false;
@@ -154,6 +161,14 @@ public class SearchResultPageParser extends BasePageParser {
 				}
 				Element placeEl = itemAttr.select("li.place").get(0);
 				String sellerAddress = placeEl.ownText();
+				String addrProvince = "", addrCity = "";
+				if(sellerAddress.contains(" ")){
+					String[] addrs = sellerAddress.split(" ");
+					addrProvince = addrs[0];
+					addrCity = addrs[1];
+				}else {
+					addrProvince = addrCity = sellerAddress;
+				}
 				String saleNumStr = itemAttr.select("li.sale").get(0).ownText();
 				int saleNum = -1;
 				if (null == saleNumStr || saleNumStr.length() == 0) {
@@ -231,6 +246,8 @@ public class SearchResultPageParser extends BasePageParser {
 				sellerItemInfo.setFreightPrice(freight);
 				sellerItemInfo.setCreditCardPay(isCreditcard);
 				sellerItemInfo.setSellerAddress(sellerAddress);
+				sellerItemInfo.setAddrProvince(addrProvince);
+				sellerItemInfo.setAddrCity(addrCity);
 				sellerItemInfo.setSaleNum(saleNum);
 				sellerItemInfo.setReviews(reviewsNum);
 				sellerItemInfo.setConsumerPromise(isConsumerPromise);
@@ -284,6 +301,19 @@ public class SearchResultPageParser extends BasePageParser {
 		return false;
 	}
 
+	/**
+	 * check the item id is inserted or not
+	 * @param itemId
+	 * */
+	private boolean isInserted(String itemId){
+		for(SellerInSearchResult seller : sellerResultList){
+			if(seller.getItemId().equals(itemId)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public static void writeDataToDB(List<SellerInSearchResult> list) {
 		try {
 			String result[] = SellerInSearchResult.getCreateSQLStr();

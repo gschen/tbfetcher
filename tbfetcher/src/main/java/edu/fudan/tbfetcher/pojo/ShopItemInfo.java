@@ -16,8 +16,10 @@ public class ShopItemInfo {
 	private int numInStock;
 	private boolean isSoldout;
 	private int totalDealNum;
+	private String itemDetailUrl;
 	private String fetchTime;
 
+	
 	public String getFetchTime() {
 		return fetchTime;
 	}
@@ -122,6 +124,14 @@ public class ShopItemInfo {
 		this.isSoldout = isSoldout;
 	}
 
+	public String getItemDetailUrl() {
+		return itemDetailUrl;
+	}
+
+	public void setItemDetailUrl(String itemDetailUrl) {
+		this.itemDetailUrl = itemDetailUrl;
+	}
+
 	public int getTotalDealNum() {
 		return totalDealNum;
 	}
@@ -147,6 +157,7 @@ public class ShopItemInfo {
 		createSqlStr.append("numOfCollectItem integer, ");
 		createSqlStr.append("reviewNum integer, ");
 		createSqlStr.append("isSoldout char(1), ");
+		createSqlStr.append("itemDetailUrl varchar(200), ");
 		createSqlStr.append("fetchTime varchar(50), ");
 		createSqlStr.append("totalDealNum integer)");
 

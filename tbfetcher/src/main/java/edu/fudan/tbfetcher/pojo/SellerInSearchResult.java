@@ -5,7 +5,7 @@ public class SellerInSearchResult {
 
 	private String itemId;
 	private String shopId;
-	private String productName; // top rank的产品名
+	private String productName;
 	private String itemName;
 	private String itemUrl;
 	private String categoryName;
@@ -16,6 +16,8 @@ public class SellerInSearchResult {
 	private double freightPrice;
 	private boolean creditCardPay;
 	private String sellerAddress;
+	private String addrProvince;
+	private String addrCity;
 	private int saleNum;
 	private int reviews;
 	private boolean isConsumerPromise;
@@ -157,6 +159,30 @@ public class SellerInSearchResult {
 		this.sellerAddress = sellerAddress;
 	}
 
+	public String getItemUrl() {
+		return itemUrl;
+	}
+
+	public void setItemUrl(String itemUrl) {
+		this.itemUrl = itemUrl;
+	}
+
+	public String getAddrProvince() {
+		return addrProvince;
+	}
+
+	public void setAddrProvince(String addrProvince) {
+		this.addrProvince = addrProvince;
+	}
+
+	public String getAddrCity() {
+		return addrCity;
+	}
+
+	public void setAddrCity(String addrCity) {
+		this.addrCity = addrCity;
+	}
+
 	public int getSaleNum() {
 		return saleNum;
 	}
@@ -246,7 +272,9 @@ public class SellerInSearchResult {
 		createSqlStr.append("price double, ");
 		createSqlStr.append("freightPrice double, ");
 		createSqlStr.append("creditCardPay char(1), ");
-		createSqlStr.append("sellerAddress varchar(100), ");
+		createSqlStr.append("sellerAddress varchar(20), ");
+		createSqlStr.append("addrProvince varchar(10), ");
+		createSqlStr.append("addrCity varchar(10), ");
 		createSqlStr.append("saleNum integer, ");
 		createSqlStr.append("reviews integer, ");
 		createSqlStr.append("isConsumerPromise char(1), ");
