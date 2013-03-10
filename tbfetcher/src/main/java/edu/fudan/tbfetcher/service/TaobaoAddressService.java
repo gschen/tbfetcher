@@ -52,8 +52,25 @@ public class TaobaoAddressService implements AddressService {
 	}
 
 	@Override
-	public String getAddress(String addrCode) {
-		return addrMap.get(addrCode);
+	public String[] getAddress(String addrCode) {
+		String[] addr = new String[3];
+		addr[0] = addrMap.get(addrCode);
+		if(null == addr[0]){
+			return null; 
+		}
+		if(!addrCode.endsWith("000")){
+			StringBuilder builder = new StringBuilder(addrCode);
+			int len = addrCode.length();
+			
+			builder.replace(len - 3, len, "000");
+			
+			addr[1] = addrMap.get(builder.toString());
+			addr[2] = addr[0].substring(addr[1].length(), addr[0].length());
+		} else {
+			addr[1] = addr[0];
+			addr[2] = "";
+		}
+		return addr;
 	}
 
 }

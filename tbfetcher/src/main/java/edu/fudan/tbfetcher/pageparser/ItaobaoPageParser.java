@@ -6,7 +6,6 @@ import org.jsoup.select.Elements;
 
 import edu.fudan.tbfetcher.pojo.ItemComment;
 import edu.fudan.tbfetcher.service.TaobaoAddressService;
-import edu.fudan.tbfetcher.service.TaobaoDsDataService;
 
 /**
  * 买家信息页面解析
@@ -100,9 +99,14 @@ public class ItaobaoPageParser extends BasePageParser {
 			Element addEl = addressEls.get(0);
 			String addressCode = addEl.ownText();
 
-			String address = TaobaoAddressService.getInstance().getAddress(
-					addressCode);
-			buyerInfo.setBuyerAddress(address);
+			String[] address = TaobaoAddressService.getInstance().getAddress(addressCode);
+			
+			if(null != address){
+				buyerInfo.setBuyerAddress(address[0]);
+				buyerInfo.setAddrProvince(address[1]);
+				buyerInfo.setAddrCity(address[2]);
+			}
+			
 			log.info("buyer address: " + address);
 		}
 	}

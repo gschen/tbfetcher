@@ -2,9 +2,6 @@ package edu.fudan.tbfetcher.pageparser;
 
 import java.util.List;
 
-import javax.xml.soap.Detail;
-
-import jxl.write.WritableSheet;
 
 import org.apache.log4j.Logger;
 import org.jsoup.nodes.Element;
@@ -560,11 +557,47 @@ public class ItemDetailPageParser extends BasePageParser {
 		}
 	}
 
-	public static void setReviewDate(String itemId, String firstDate,
-			String lastDate) {
+	public static void setReviewDate(String itemId, String firstDate, String lastDate) {
+		String yearOfFirst = "",
+				monthOfFirst = "",
+				dayOfFirst = "",
+				timeOfFirst = "",
+				yearOfLast = "",
+				monthOfLast = "",
+				dayOfLast = "",
+				timeOfLast = "";
+		
+		if(null != firstDate){
+			String[] firstArray = dateFormat(firstDate);
+			
+			yearOfFirst = firstArray[0];
+			monthOfFirst= firstArray[1];
+			dayOfFirst = firstArray[2];
+			timeOfFirst = firstArray[3];
+		}
+		if(null != lastDate){
+			String[] lastArray = dateFormat(lastDate);
+			
+			yearOfLast = lastArray[0];
+			monthOfLast = lastArray[1];
+			dayOfLast = lastArray[2];
+			timeOfLast = lastArray[3];
+		}
+		
+		firstDate = firstDate.trim();
+		lastDate = lastDate.trim();
 		String sqlStr = "update " + SystemConstant.ITEM_DETAIL_TABLE
 				+ " set oldestCommentDate='" + firstDate
-				+ "', latestCommentDate='" + lastDate + "' where itemId='"
+				+ "', latestCommentDate='" + lastDate
+				+ "', yearOfOldest='" + yearOfFirst 
+				+ "', monthOfOldest='" + monthOfFirst
+				+ "', dayOfOldest='" + dayOfFirst
+				+ "', timeOfOldest='" + timeOfFirst
+				+ "', yearOfLatest='" + yearOfLast
+				+ "', monthOfLatest='" + monthOfLast
+				+ "', dayOfLatest='" + dayOfLast
+				+ "', timeOfLatest='" + timeOfLast
+				+ "' where itemId='"
 				+ itemId + "'";
 		try {
 			DBManager.connectDB();
@@ -574,4 +607,20 @@ public class ItemDetailPageParser extends BasePageParser {
 			log.error("Exception: ", e);
 		}
 	}
+	
+	private static String[] dateFormat(String dateStr){
+		String[] results = new String[4];
+		int len = dateStr.length();
+		
+		if(len > 11){
+			results[0] = dateStr.substring(0, 3);
+			results[1] = dateStr.substring(5, 7);
+			results[2] = dateStr.substring(9, 11);
+		}
+		
+		if(len > 12){
+			results[3] = dateStr.substring(12, len);
+		}
+		return results;
+	} 
 }

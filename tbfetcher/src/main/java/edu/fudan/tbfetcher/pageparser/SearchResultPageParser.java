@@ -3,8 +3,6 @@ package edu.fudan.tbfetcher.pageparser;
 import java.util.ArrayList;
 import java.util.List;
 
-import jxl.write.WritableSheet;
-
 import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

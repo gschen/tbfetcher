@@ -14,6 +14,8 @@ public class ItemComment {
 	private String buyerDesc = "-1"; // "小有所成"等
 	private String gender = "-1"; // 男、女
 	private String buyerAddress = "-1";
+	private String addrProvince = "-1";
+	private String addrCity = "-1";
 	private String buyerHomePageUrl;
 	private String fetchTime;
 
@@ -121,9 +123,32 @@ public class ItemComment {
 		this.buyerHomePageUrl = buyerHref;
 	}
 
+	public String getAddrProvince() {
+		return addrProvince;
+	}
+
+	public void setAddrProvince(String addrProvince) {
+		this.addrProvince = addrProvince;
+	}
+
+	public String getAddrCity() {
+		return addrCity;
+	}
+
+	public void setAddrCity(String addrCity) {
+		this.addrCity = addrCity;
+	}
+
+	public String getBuyerHomePageUrl() {
+		return buyerHomePageUrl;
+	}
+
+	public void setBuyerHomePageUrl(String buyerHomePageUrl) {
+		this.buyerHomePageUrl = buyerHomePageUrl;
+	}
+
 	public static String[] getCreateSQLStr() {
-		StringBuffer createSqlStr = new StringBuffer("CREATE TABLE "
-				+ TABLE_NAME + "(");
+		StringBuffer createSqlStr = new StringBuffer("CREATE TABLE " + TABLE_NAME + "(");
 
 		createSqlStr.append("id counter primary key, ");
 		createSqlStr.append("itemId varchar(30), ");
@@ -137,6 +162,8 @@ public class ItemComment {
 		createSqlStr.append("buyerDesc varchar(100), ");
 		createSqlStr.append("gender char(1), ");
 		createSqlStr.append("buyerAddress varchar(100), ");
+		createSqlStr.append("addrProvince varchar(15), ");
+		createSqlStr.append("addrCity varchar(15), ");
 		createSqlStr.append("fetchTime varchar(50), ");
 		createSqlStr.append("buyerHomePageUrl varchar(200))");
 

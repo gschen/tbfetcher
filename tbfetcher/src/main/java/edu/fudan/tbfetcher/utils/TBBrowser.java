@@ -56,8 +56,8 @@ public class TBBrowser {
 					SystemConstant.SO_TIMEOUT);
 			HttpConnectionParams.setTcpNoDelay(httpParams, true);
 			HttpConnectionParams.setStaleCheckingEnabled(httpParams, false);
-			// httpParams.setBooleanParameter(ClientPNames.HANDLE_REDIRECTS,
-			// false); //禁止自动重定向
+//			httpParams.setBooleanParameter(ClientPNames.HANDLE_REDIRECTS, false); //禁止自动重定向
+			
 			SchemeRegistry schemeRegistry = new SchemeRegistry();
 			schemeRegistry.register(new Scheme("http", 80, PlainSocketFactory
 					.getSocketFactory()));
@@ -165,8 +165,7 @@ public class TBBrowser {
 			}
 			EntityUtils.consume(entity);
 		} catch (Exception e) { // 这里捕获所有可能的异常，统一处理
-			log.error("Exception happened[doGet: exception], url ["
-					+ httpget.getURI() + "]");
+			log.error("Exception happened[doGet: exception], url [" + httpget.getURI() + "]");
 			log.error("Exception: ", e);
 			httpget.abort();
 		} finally {

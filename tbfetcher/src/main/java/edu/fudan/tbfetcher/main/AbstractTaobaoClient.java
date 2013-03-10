@@ -2,6 +2,7 @@ package edu.fudan.tbfetcher.main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -34,10 +35,9 @@ public abstract class AbstractTaobaoClient {
 	private List<SellerInSearchResult> sellerInSearchResults;
 	private List<ItemInfo> itemInfos;
 	private List<ReviewBaseUrlInfo> reviewBaseUrls;
-	private List<ShopRate> storeInfos;
 	private Map<String, ShopIndexInfo> shopIndexs;
-	private List<ShopIndexInfo> shopInfoList = new ArrayList<ShopIndexInfo>();
-
+	private List<ShopRate> storeInfos;
+	
 	public void setUp() {
 		DOMConfigurator.configure("log4j.xml");
 		SystemConfiguration.init();
@@ -220,8 +220,7 @@ public abstract class AbstractTaobaoClient {
 		boolean getPageFlag = false;
 		while (sellerInSearchResults.size() > 0) {
 			for (int i = 0; i < sellerInSearchResults.size(); ++i) {
-				SellerInSearchResult sellerInSearchResult = sellerInSearchResults
-						.get(i);
+				SellerInSearchResult sellerInSearchResult = sellerInSearchResults.get(i);
 				String href = sellerInSearchResult.getHref();
 				if (null == href || 0 == href.length()) {
 					log.info("Item detail page url is null. Skip it!");
@@ -231,10 +230,8 @@ public abstract class AbstractTaobaoClient {
 				try {
 					itemDetailPageParser.init();
 					itemDetailPageParser.setPageUrl(href);
-					itemDetailPageParser.setItemId(sellerInSearchResult
-							.getItemId());
-					itemDetailPageParser.setTmall(sellerInSearchResult
-							.isTmall());
+					itemDetailPageParser.setItemId(sellerInSearchResult.getItemId());
+					itemDetailPageParser.setTmall(sellerInSearchResult.isTmall());
 					getPageFlag = itemDetailPageParser.getPage();
 					if (getPageFlag) {
 						itemDetailPageParser.parsePage();
@@ -249,15 +246,12 @@ public abstract class AbstractTaobaoClient {
 							shopIndexInfo.setShopRateUrl(shopRateUrl);
 							shopIndexInfo.setShopUrl(shopUrl);
 							shopIndexInfo.setTmall(itemInfo.isTmall());
-							shopIndexInfo.setUserNumberId(sellerInSearchResult
-									.getUserNumberId());
+							shopIndexInfo.setUserNumberId(sellerInSearchResult.getUserNumberId());
 
 							shopIndexs.put(shopId, shopIndexInfo);
-							shopInfoList.add(shopIndexInfo);
 						}
 
-						SearchResultPageParser.updateShopId(
-								itemInfo.getItemId(), itemInfo.getShopId());
+						SearchResultPageParser.updateShopId(itemInfo.getItemId(), itemInfo.getShopId());
 						itemInfos.add(itemInfo);
 
 						ReviewBaseUrlInfo baseUrlInfo = new ReviewBaseUrlInfo();
@@ -273,8 +267,7 @@ public abstract class AbstractTaobaoClient {
 						sellerInSearchResults.remove(i);
 					}
 				} catch (Exception e) {
-					log.error("Exception happened [Item Detail Process], url ["
-							+ href + "]. Skip it!");
+					log.error("Exception happened [Item Detail Process], url [" + href + "]. Skip it!");
 					log.error("Exception: ", e);
 					continue;
 				}
@@ -302,7 +295,9 @@ public abstract class AbstractTaobaoClient {
 			return;
 		}
 		ShopItemService shopItemService = new ShopItemService();
-		for (ShopIndexInfo shopInfo : shopInfoList) {
+		Iterator<ShopIndexInfo> iShopInfo = shopIndexs.values().iterator();
+		while(iShopInfo.hasNext()){
+			ShopIndexInfo shopInfo = iShopInfo.next();
 			String shopUrl = shopInfo.getShopUrl();
 
 			if (null == shopUrl || 0 == shopUrl.length()) {
@@ -316,8 +311,7 @@ public abstract class AbstractTaobaoClient {
 				shopItemService.execute();
 			} catch (Exception e) {
 				// TODO: handle exception
-				log.error("Exception happened [Shop Item Process], url ["
-						+ shopUrl + "]. Skip it!");
+				log.error("Exception happened [Shop Item Process], url [" + shopUrl + "]. Skip it!");
 				log.error("Exception: ", e);
 				continue;
 			}
@@ -332,8 +326,9 @@ public abstract class AbstractTaobaoClient {
 		log.info("Start to process shop rate page.");
 		storeInfos = new ArrayList<ShopRate>();
 		ShopRatePageParser shopRatePageParser = new ShopRatePageParser();
-		for (ShopIndexInfo shopInfo : shopInfoList) {
-			log.info("------------------------------------");
+		Iterator<ShopIndexInfo> iShopInfo = shopIndexs.values().iterator();
+		while(iShopInfo.hasNext()){
+			ShopIndexInfo shopInfo = iShopInfo.next();
 			boolean isTmall = shopInfo.isTmall();
 			String shopRateUrl = shopInfo.getShopRateUrl();
 

@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 import edu.fudan.tbfetcher.constant.SystemConfiguration;
 import edu.fudan.tbfetcher.pojo.ItemComment;
 import edu.fudan.tbfetcher.utils.DateTimeUtil;
-import edu.fudan.tbfetcher.utils.TBBrowser;
 
 public class TmallItemCommentHandler extends AbstractItemCommentHandler {
 	public TmallItemCommentHandler(String itemId, String baseCommentSUrl) {

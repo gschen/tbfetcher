@@ -21,7 +21,15 @@ public class ItemInfo {
 	private String spec = "-1"; // 商品描述
 	private String capacity = "-1"; // 容量
 	private String latestCommentDate = "-1"; // 第一条评价时间
+	private String yearOfLatest;     //年
+	private String monthOfLatest;    //月
+	private String dayOfLatest;      //日
+	private String timeOfLatest;    //时间
 	private String oldestCommentDate = "-1"; // 最后一条评价时间
+	private String yearOfOldest;    //年
+	private String monthOfOldest;    //月
+	private String dayOfOldest;    //日
+	private String timeOfOldest;    //时间
 	private String shopRateUrl = "-1"; // 店铺动态评分页面url,如果宝贝不属于任何的店铺则店铺信用url默认为-1
 	private String itemDetailUrl; // 商品详细信息页面，也就是本页面
 	private String itemType; // not Tmall 商品类型：全新等
@@ -143,11 +151,59 @@ public class ItemInfo {
 	public void setLatestCommentDate(String latestCommentDate) {
 		this.latestCommentDate = latestCommentDate;
 	}
+	public String getMonthOfLatest() {
+		return monthOfLatest;
+	}
+	public void setMonthOfLatest(String monthOfLatest) {
+		this.monthOfLatest = monthOfLatest;
+	}
+	public String getDayOfLatest() {
+		return dayOfLatest;
+	}
+	public void setDayOfLatest(String dayOfLatest) {
+		this.dayOfLatest = dayOfLatest;
+	}
+	public String getDayOfOldest() {
+		return dayOfOldest;
+	}
+	public void setDayOfOldest(String dayOfOldest) {
+		this.dayOfOldest = dayOfOldest;
+	}
+	public String getTimeOfLatest() {
+		return timeOfLatest;
+	}
+	public void setTimeOfLatest(String timeOfLatest) {
+		this.timeOfLatest = timeOfLatest;
+	}
 	public String getOldestCommentDate() {
 		return oldestCommentDate;
 	}
 	public void setOldestCommentDate(String oldestCommentDate) {
 		this.oldestCommentDate = oldestCommentDate;
+	}
+	public String getYearOfLatest() {
+		return yearOfLatest;
+	}
+	public void setYearOfLatest(String yearOfLatest) {
+		this.yearOfLatest = yearOfLatest;
+	}
+	public String getYearOfOldest() {
+		return yearOfOldest;
+	}
+	public void setYearOfOldest(String yearOfOldest) {
+		this.yearOfOldest = yearOfOldest;
+	}
+	public String getMonthOfOldest() {
+		return monthOfOldest;
+	}
+	public void setMonthOfOldest(String monthOfOldest) {
+		this.monthOfOldest = monthOfOldest;
+	}
+	public String getTimeOfOldest() {
+		return timeOfOldest;
+	}
+	public void setTimeOfOldest(String timeOfOldest) {
+		this.timeOfOldest = timeOfOldest;
 	}
 	public String getShopRateUrl() {
 		return shopRateUrl;
@@ -224,8 +280,7 @@ public class ItemInfo {
 
 
 	public static String[] getCreateSQLStr() {
-		StringBuffer createSqlStr = new StringBuffer("CREATE TABLE "
-				+ SystemConstant.ITEM_DETAIL_TABLE + "(");
+		StringBuffer createSqlStr = new StringBuffer("CREATE TABLE " + SystemConstant.ITEM_DETAIL_TABLE + "(");
 
 		createSqlStr.append("id counter primary key, ");
 		createSqlStr.append("isTmall char(1), ");
@@ -249,7 +304,15 @@ public class ItemInfo {
 		createSqlStr.append("spec varchar(200), ");
 		createSqlStr.append("capacity varchar(20), ");
 		createSqlStr.append("oldestCommentDate varchar(20), ");
+		createSqlStr.append("yearOfOldest varchar(5), ");
+		createSqlStr.append("monthOfOldest varchar(5), ");
+		createSqlStr.append("dayOfOldest varchar(5), ");
+		createSqlStr.append("timeOfOldest varchar(10), ");
 		createSqlStr.append("latestCommentDate varchar(20), ");
+		createSqlStr.append("yearOfLatest varchar(5), ");
+		createSqlStr.append("monthOfLatest varchar(5), ");
+		createSqlStr.append("dayOfLatest varchar(5), ");
+		createSqlStr.append("timeOfLatest varchar(10), ");
 		createSqlStr.append("shopRateUrl varchar(200), ");
 		createSqlStr.append("itemDetailUrl varchar(200), ");
 		createSqlStr.append("itemType varchar(20), ");
