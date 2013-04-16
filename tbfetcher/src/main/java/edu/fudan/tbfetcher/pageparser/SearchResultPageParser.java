@@ -19,7 +19,8 @@ public class SearchResultPageParser extends BasePageParser {
 
 	private static final Logger log = Logger.getLogger(SearchResultPageParser.class);
 
-	public static final String[] sortKind = new String[] { "commend", // 默认
+	public static final String[] sortKind = new String[] { 
+			"commend", // 默认
 			"renqi-desc", // 人气从高到低
 			"sale-desc", // 销量从高到低
 			"credit-desc", // 信用从高到低
@@ -254,8 +255,7 @@ public class SearchResultPageParser extends BasePageParser {
 				sellerItemInfo.setIs30DaysMaintain(is30DaysMaintain);
 				sellerItemInfo.setPage(pageNum + 1);
 				sellerItemInfo.setRank(rank);
-				sellerItemInfo
-						.setLeaveACompensableThree(isLeaveACompensableThree);
+				sellerItemInfo.setLeaveACompensableThree(isLeaveACompensableThree);
 				sellerItemInfo.setFetchTime(DateTimeUtil.getCurrentDateTime());
 
 				log.info("----------------------------------------");

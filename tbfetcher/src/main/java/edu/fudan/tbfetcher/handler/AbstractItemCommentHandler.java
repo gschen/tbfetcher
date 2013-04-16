@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import edu.fudan.tbfetcher.constant.SystemConfiguration;
+import edu.fudan.tbfetcher.constant.SystemConstant;
 import edu.fudan.tbfetcher.dbaccess.DBManager;
 import edu.fudan.tbfetcher.pageparser.ItaobaoPageParser;
 import edu.fudan.tbfetcher.pojo.FeedRate;
@@ -146,9 +148,9 @@ public abstract class AbstractItemCommentHandler implements ItemCommentHandler {
 		if (2 == ItemCommentConfig.strategyNum) {
 			String dateFormatStr = "";
 			if (isTmall) {
-				dateFormatStr = "yyyy-MM-dd HH:mm:ss";
+				dateFormatStr = SystemConstant.COMMENT_TM_DATE_FORMAT;
 			} else {
-				dateFormatStr = "yyyy.MM.dd";
+				dateFormatStr = SystemConstant.COMMENT_TB_DATE_FORMAT;
 			}
 			SimpleDateFormat format = new SimpleDateFormat(dateFormatStr);
 			try {

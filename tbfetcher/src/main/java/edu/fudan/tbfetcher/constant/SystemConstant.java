@@ -8,7 +8,7 @@ public class SystemConstant {
 	public static final int CONNECTION_TIMEOUT = 30000;
 
 	public static final int SO_TIMEOUT = 60000;
-	public static final String dbFilePath = "D:\\tbfetcher.accdb";
+	public static final String dbFilePath = ".\\tbfetcher.accdb";
 
 	public static final int THREAD_NUM = 20;
 
@@ -20,5 +20,8 @@ public class SystemConstant {
 	public static final String ITEM_COMMENT_TABLE = "ItemCommentTable";
 	public static final String SHOP_NUM_TABLE = "ShopNumTable";
 
-	public static final int DB_WRITE_NUM = 10; // 每隔多少条顺序
+	public static final int DB_WRITE_NUM = 10; // 每隔多少条顺序写一次数据库
+	
+	public static final String COMMENT_TB_DATE_FORMAT = "yyyy年MM月dd日 HH:mm";   //淘宝的评论日期格式
+	public static final String COMMENT_TM_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";   //天猫的评论日期格式
 }
